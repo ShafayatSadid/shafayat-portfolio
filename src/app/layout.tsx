@@ -1,7 +1,9 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Navbar } from "@/components/layout/Navbar";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -30,7 +32,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         jetbrainsMono.variable
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+      </body>
     </html>
   );
 }
