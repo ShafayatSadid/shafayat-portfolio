@@ -71,14 +71,10 @@ export function TestimonialsSection() {
                 </Carousel>
             </div>
 
-            <div className="mt-12 text-center">
+                        <div className="mt-12 text-center">
                 <Link
                     href="/testimonials"
-                    className={buttonVariants({
-                        variant: "outline",
-                        size: "lg",
-                        className: "rounded-full bg-card shadow-sm hover:bg-accent hover:text-accent-foreground"
-                    })}
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-primary/10 px-8 text-sm font-semibold text-primary transition-colors hover:bg-primary/20 hover:text-primary"
                 >
                     Read All Testimonials
                 </Link>
