@@ -9,6 +9,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { label: "My Work", href: "/my-work" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export interface SocialLink {
