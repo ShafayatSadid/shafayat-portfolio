@@ -1,4 +1,4 @@
-// src/app/page.tsx
+// src/app/(main)/page.tsx
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
 import { About } from "@/components/sections/About";

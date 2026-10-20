@@ -1,26 +1,16 @@
-// src/app/layout.tsx
-
-import { cn } from "@/lib/utils";
+// src/app/(main)/layout.tsx
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 
-
-export default function MainLayout({ children }: LayoutProps<"/">) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html
-            lang="en"
-            className={cn(
-                "h-full antialiased",
+        <>
 
-            )}
-        >
-            <body className="min-h-full flex flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
 
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-            </body>
-        </html>
+        </>
     );
 }

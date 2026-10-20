@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={cn(
-        "h-full antialiased",
+        "h-full antialiased scroll-smooth",
         geist.variable,
         jetbrainsMono.variable
       )}
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Toaster position="top-center" richColors />
        
-        <main className="flex-1">{children}</main>
+        {children}
      
       </body>
     </html>
