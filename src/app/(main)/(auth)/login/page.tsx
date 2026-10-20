@@ -30,7 +30,7 @@ export default function LoginPage() {
 
       if (result) {
         toast.success("Logged in successfully!");
-        router.push("/dashboard");
+        router.push("/");
         router.refresh();
         return;
       }
@@ -46,7 +46,7 @@ export default function LoginPage() {
 
 
   return (
-    <div className="flex min-h-[85vh] items-center justify-center px-4 relative overflow-hidden">
+    <div className="flex min-h-[85vh] items-center justify-center px-4 relative overflow-hidden py-10">
       {/* Background Glow */}
       <div className="pointer-events-none absolute inset-0 -z-10 flex justify-center">
         <div className="absolute top-1/4 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />

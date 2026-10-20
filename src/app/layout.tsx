@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "sonner";
 
 const geist = Geist({
@@ -36,9 +34,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Toaster position="top-center" richColors />
-        <Navbar />
+       
         <main className="flex-1">{children}</main>
-        <Footer />
+     
       </body>
     </html>
   );

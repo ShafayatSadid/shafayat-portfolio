@@ -2,9 +2,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Menu, Mail } from "lucide-react";
+import { Menu, Mail, LogOut, LayoutDashboard } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { BsLinkedin } from "react-icons/bs";
 import { cn } from "cn";
@@ -16,7 +16,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuGroup,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NAV_ITEMS, SOCIALS, SocialLink } from "@/lib/nav";
+import { authClient } from "@/lib/auth-client";
 
 const ICON_MAP: Record<SocialLink["icon"], React.ComponentType<{ className?: string }>> = {
   github: SiGithub,
@@ -26,15 +37,28 @@ const ICON_MAP: Record<SocialLink["icon"], React.ComponentType<{ className?: str
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const { data: session, isPending } = authClient.useSession();
+  
+  // any ছাড়া টাইপ সেফ চেক
+  const isAdmin = (session?.user as { role?: string })?.role === "admin";
 
   const isActive = (href: string) => pathname === href;
   const closeSheet = () => setOpen(false);
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    router.push("/");
+    router.refresh();
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <nav className="relative mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         
+        {/* Left Side */}
         <div className="flex items-center">
           <Link href="/" className="text-lg font-semibold tracking-tight md:hidden">
             <span className="text-foreground">Shafayat</span>{" "}
@@ -63,6 +87,7 @@ export function Navbar() {
           </div>
         </div>
 
+        {/* Middle Side */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex">
           {NAV_ITEMS.map((item) => (
             <Link
@@ -80,14 +105,73 @@ export function Navbar() {
           ))}
         </div>
 
+        {/* Right Side */}
         <div className="flex items-center gap-2">
-          <Link
-            href="/contact"
-            className={cn(buttonVariants({ size: "sm" }), "hidden md:inline-flex")}
-          >
-            Hire Me
-          </Link>
+          <div className="hidden md:flex items-center gap-4">
+            {isPending ? (
+              <div className="h-9 w-9 animate-pulse rounded-full bg-muted" />
+            ) : session?.user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="outline-none">
+                  <Avatar className="size-9 cursor-pointer ring-2 ring-primary/20 transition-all hover:ring-primary/60">
+                    <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                      {session.user.name?.slice(0, 2).toUpperCase() || "AD"}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 rounded-2xl p-2 shadow-xl border-border/50">
+                  <DropdownMenuGroup>
+                    {/* প্রিমিয়াম ইউজার ইনফো সেকশন */}
+                    <DropdownMenuLabel className="font-normal p-0 mb-2">
+                      <div className="flex items-center gap-3 rounded-xl bg-muted/50 p-3">
+                        <Avatar className="size-10 border border-border">
+                          <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                          <AvatarFallback className="bg-primary text-primary-foreground text-sm font-bold">
+                            {session.user.name?.slice(0, 2).toUpperCase() || "AD"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col space-y-1 truncate">
+                          <p className="text-sm font-semibold leading-none truncate">{session.user.name}</p>
+                          <p className="text-xs leading-none text-muted-foreground truncate">
+                            {session.user.email}
+                          </p>
+                        </div>
+                      </div>
+                    </DropdownMenuLabel>
+                    
+                    <DropdownMenuSeparator className="mb-1" />
 
+                    {/* শুধুমাত্র অ্যাডমিন হলে ড্যাশবোর্ড অপশন দেখাবে */}
+                    {isAdmin && (
+                      <DropdownMenuItem 
+                        onClick={() => router.push("/dashboard")} 
+                        className="cursor-pointer rounded-lg py-2.5 focus:bg-primary/10 focus:text-primary transition-colors"
+                      >
+                        <LayoutDashboard className="mr-2 size-4" />
+                        <span className="font-medium">Dashboard</span>
+                      </DropdownMenuItem>
+                    )}
+                    
+                    {/* লগআউট বাটন */}
+                    <DropdownMenuItem 
+                      onClick={handleSignOut} 
+                      className="cursor-pointer rounded-lg py-2.5 text-destructive focus:bg-destructive/10 focus:text-destructive transition-colors mt-1"
+                    >
+                      <LogOut className="mr-2 size-4" />
+                      <span className="font-medium">Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/contact" className={cn(buttonVariants({ size: "sm" }), "rounded-full px-6")}>
+                Hire Me
+              </Link>
+            )}
+          </div>
+
+          {/* Mobile Hamburger */}
           <div className="md:hidden">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger
@@ -118,14 +202,59 @@ export function Navbar() {
                       {item.label}
                     </Link>
                   ))}
-                  <Link
-                    href="/contact"
-                    onClick={closeSheet}
-                    className={cn(buttonVariants({ size: "sm" }), "mt-4 w-full")}
-                  >
-                    Hire Me
-                  </Link>
 
+                  {/* Mobile Auth */}
+                  <div className="mt-4 flex flex-col gap-2 border-t pt-4">
+                    {isPending ? (
+                      <div className="h-10 w-full animate-pulse rounded-md bg-muted" />
+                    ) : session?.user ? (
+                      <>
+                        <div className="flex items-center gap-3 rounded-xl bg-muted/50 p-3 mb-2">
+                          <Avatar className="size-10 border border-border">
+                            <AvatarImage src={session.user.image || ""} alt={session.user.name || "User"} />
+                            <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
+                              {session.user.name?.slice(0, 2).toUpperCase() || "AD"}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col truncate">
+                            <span className="text-sm font-semibold">{session.user.name}</span>
+                            <span className="text-xs text-muted-foreground truncate">{session.user.email}</span>
+                          </div>
+                        </div>
+
+                        {isAdmin && (
+                          <Link
+                            href="/dashboard"
+                            onClick={closeSheet}
+                            className={cn(buttonVariants({ variant: "secondary", size: "sm" }), "w-full justify-start gap-2 rounded-lg")}
+                          >
+                            <LayoutDashboard className="size-4" />
+                            Dashboard
+                          </Link>
+                        )}
+                        
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => { closeSheet(); handleSignOut(); }}
+                          className="w-full justify-start gap-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive hover:text-white"
+                        >
+                          <LogOut className="size-4" />
+                          Log out
+                        </Button>
+                      </>
+                    ) : (
+                      <Link
+                        href="/contact"
+                        onClick={closeSheet}
+                        className={cn(buttonVariants({ size: "sm" }), "w-full rounded-full")}
+                      >
+                        Hire Me
+                      </Link>
+                    )}
+                  </div>
+
+                  {/* Mobile Socials */}
                   <div className="mt-6 flex items-center gap-2 border-t pt-4">
                      {SOCIALS.map((social) => {
                         const Icon = ICON_MAP[social.icon];
