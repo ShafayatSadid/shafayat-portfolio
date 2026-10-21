@@ -1,6 +1,12 @@
 // src/app/contact/page.tsx
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact — Shafayat Sadid",
+  description: "Get in touch with me for freelance projects, collaborations, or just to say hi.",
+};
 
 export default function ContactPage() {
   return (
@@ -20,7 +26,7 @@ export default function ContactPage() {
           <div>
             <h2 className="mb-6 text-2xl font-bold">Let&apos;s talk about your project</h2>
             <p className="text-muted-foreground leading-relaxed mb-8">
-              I&apos;m currently available for freelance work and open to new opportunities. 
+              I&apos;m currently available for freelance work and open to new opportunities.
               Whether you have a specific project in mind or just want to say hi, I&apos;d love to hear from you.
             </p>
           </div>
@@ -35,7 +41,7 @@ export default function ContactPage() {
                 <p className="font-semibold">hello@shafayatsadid.com</p>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <MapPin className="size-5" />
