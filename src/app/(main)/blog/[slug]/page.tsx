@@ -1,9 +1,11 @@
-// src/app/blog/[slug]/page.tsx
+// src/app/(main)/blog/[slug]/page.tsx
 import { Metadata } from "next";
 import BlogPostClient from "./BlogPostClient";
 
-// ডাইনামিক মেটাডেটা জেনারেট
+// ডাইনামিক মেটাডেটা জেনারেট (এখন ক্যাশড)
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  "use cache"; // <-- এই লাইনটি যোগ করা হয়েছে
+
   const resolvedParams = await params;
   
   try {
