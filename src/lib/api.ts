@@ -81,6 +81,37 @@ export async function deleteBlog(id: string) {
   });
 }
 
+
+// ... (আগের কোডগুলো অপরিবর্তিত থাকবে)
+// src/lib/api.ts (শেষে যোগ করো)
+
+// প্রজেক্ট CRUD অপারেশন
+type ProjectPayload = Omit<Project, "_id" | "createdAt">;
+
+export async function getProjectById(id: string): Promise<Project> {
+  return fetchWithAuth(`/api/projects/edit/${id}`);
+}
+
+export async function createProject(data: ProjectPayload) {
+  return fetchWithAuth("/api/projects", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateProject(id: string, data: Partial<ProjectPayload>) {
+  return fetchWithAuth(`/api/projects/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteProject(id: string) {
+  return fetchWithAuth(`/api/projects/${id}`, {
+    method: "DELETE",
+  });
+}
+
 export async function submitContactForm(data: { name: string; email: string; message: string }) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
     method: "POST",
