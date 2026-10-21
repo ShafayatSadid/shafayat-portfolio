@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         jetbrainsMono.variable
       )}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Toaster position="top-center" richColors />
        
         {children}
