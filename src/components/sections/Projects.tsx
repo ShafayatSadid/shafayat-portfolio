@@ -75,7 +75,7 @@ export function Projects() {
                 <CarouselItem key={project._id}>
                   {/* Project Card */}
                   <div className="group flex flex-col overflow-hidden rounded-3xl border bg-card shadow-sm transition-all hover:shadow-md md:flex-row">
-                    
+
                     {/* Image Side */}
                     <div className="relative aspect-video w-full shrink-0 overflow-hidden border-b bg-muted/30 md:aspect-[4/3] md:w-1/2 md:border-b-0 md:border-r">
                       <Image
@@ -95,11 +95,11 @@ export function Projects() {
                       <span className="mb-2 font-mono text-sm font-semibold text-primary">
                         0{index + 1}
                       </span>
-                      
+
                       <h3 className="mb-4 text-2xl font-bold tracking-tight md:text-3xl">
                         {project.title}
                       </h3>
-                      
+
                       <p className="mb-6 text-sm text-muted-foreground leading-relaxed md:text-base">
                         {project.description}
                       </p>
@@ -131,18 +131,16 @@ export function Projects() {
                           <ExternalLink className="size-4" />
                         </Link>
                         <Link
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noreferrer"
+                          href={`/my-work/${project._id}`}
                           className={cn(
                             buttonVariants({ variant: "outline" }),
                             "w-full gap-2 rounded-full sm:w-auto"
                           )}
                         >
-                          <SiGithub className="size-4" />
-                          GitHub
+                          View Details
                         </Link>
                       </div>
+
                     </div>
                   </div>
                 </CarouselItem>
@@ -152,7 +150,7 @@ export function Projects() {
             {/* Desktop Arrows */}
             <CarouselPrevious className="hidden md:flex -left-16 h-12 w-12" />
             <CarouselNext className="hidden md:flex -right-16 h-12 w-12" />
-            
+
             {/* Mobile Arrows */}
             <div className="mt-8 flex justify-center gap-4 md:hidden">
               <CarouselPrevious className="relative left-0 top-0 translate-y-0 h-10 w-10" />

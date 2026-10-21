@@ -7,5 +7,7 @@ export interface Project {
   liveUrl: string;
   githubUrl: string;
   image: string;
+  challenges?: string;
+  improvements?: string;
   createdAt?: string;
 }

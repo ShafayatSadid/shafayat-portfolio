@@ -23,10 +23,12 @@ function EditProjectContent({ params }: { params: Promise<{ id: string }> }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    techStack: "", 
+    techStack: "", // কমা দিয়ে স্ট্রিং হিসেবে থাকবে
     liveUrl: "",
     githubUrl: "",
     image: "",
+    challenges: "",
+    improvements: "",
   });
 
   useEffect(() => {
@@ -40,6 +42,8 @@ function EditProjectContent({ params }: { params: Promise<{ id: string }> }) {
           liveUrl: data.liveUrl,
           githubUrl: data.githubUrl,
           image: data.image,
+          challenges: data.challenges || "",
+          improvements: data.improvements || "",
         });
       } catch (error) {
         toast.error("Failed to load project data");
@@ -64,6 +68,8 @@ function EditProjectContent({ params }: { params: Promise<{ id: string }> }) {
         liveUrl: formData.liveUrl,
         githubUrl: formData.githubUrl,
         image: formData.image,
+        challenges: formData.challenges,
+        improvements: formData.improvements,
       });
       
       toast.success("Project updated successfully!");
@@ -151,14 +157,40 @@ function EditProjectContent({ params }: { params: Promise<{ id: string }> }) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description">Description</Label>
+          <Label htmlFor="description">Short Description</Label>
           <Textarea
             id="description"
-            rows={5}
+            rows={3}
             className="resize-none"
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             required
+          />
+        </div>
+
+        {/* নতুন ফিল্ড: Challenges */}
+        <div className="space-y-2">
+          <Label htmlFor="challenges">Challenges Faced</Label>
+          <Textarea
+            id="challenges"
+            rows={3}
+            className="resize-none"
+            placeholder="What difficulties did you face during development?"
+            value={formData.challenges}
+            onChange={(e) => setFormData({ ...formData, challenges: e.target.value })}
+          />
+        </div>
+
+        {/* নতুন ফিল্ড: Improvements */}
+        <div className="space-y-2">
+          <Label htmlFor="improvements">Potential Improvements</Label>
+          <Textarea
+            id="improvements"
+            rows={3}
+            className="resize-none"
+            placeholder="What features will you add in the future?"
+            value={formData.improvements}
+            onChange={(e) => setFormData({ ...formData, improvements: e.target.value })}
           />
         </div>
 

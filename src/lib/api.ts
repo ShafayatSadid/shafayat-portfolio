@@ -183,3 +183,11 @@ export async function submitContactForm(data: { name: string; email: string; mes
   if (!res.ok) throw new Error("Failed to send message");
   return res.json();
 }
+
+// src/lib/api.ts (শেষে যোগ করো)
+
+export async function getProjectByIdPublic(id: string): Promise<Project> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/projects/${id}`);
+  if (!res.ok) throw new Error("Failed to fetch project details");
+  return res.json();
+}

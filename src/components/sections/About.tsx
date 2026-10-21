@@ -4,6 +4,7 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import type { Variants } from "motion/react";
+import { GraduationCap, MapPin } from "lucide-react";
 import { SKILL_GROUPS, EXPERIENCES } from "@/lib/about";
 import { cn } from "cn";
 
@@ -36,7 +37,7 @@ export function About() {
         viewport={{ once: true, margin: "-100px" }}
         className="grid gap-4 md:grid-cols-3"
       >
-        {/* 1. Bio Card (Spans 2 columns on Desktop) */}
+        {/* 1. Bio Card (Spans 2 columns) */}
         <motion.div
           variants={itemVariants}
           className="flex flex-col justify-between gap-6 rounded-2xl border bg-card p-6 md:col-span-2 md:p-8"
@@ -53,7 +54,7 @@ export function About() {
               />
             </div>
             <div>
-              <h3 className="text-2xl font-bold">Md Shafayat Hossain Sadid</h3>
+              <h3 className="text-2xl font-bold">Shafayat Sadid</h3>
               <p className="mt-1 text-sm font-medium text-primary">Full-Stack Developer</p>
             </div>
           </div>
@@ -71,9 +72,9 @@ export function About() {
           className="flex flex-col justify-between rounded-2xl border bg-primary/5 p-6 md:col-span-1"
         >
           <div>
-            <h3 className="text-lg font-semibold">Experience</h3>
+            <h3 className="mb-4 text-lg font-semibold">Experience</h3>
             {EXPERIENCES.map((exp) => (
-              <div key={exp.role} className="mt-4">
+              <div key={exp.role} className="mt-2">
                 <p className="font-medium text-foreground">{exp.role}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{exp.description}</p>
               </div>
@@ -84,11 +85,29 @@ export function About() {
           </div>
         </motion.div>
 
-        {/* 3. Skills Cards (Grid loop) */}
+        {/* 3. Education Card (নতুন যোগ করা হয়েছে - Spans 1 column) */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col justify-between rounded-2xl border bg-card p-6 md:col-span-1"
+        >
+          <div>
+            <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
+              <GraduationCap className="size-5 text-primary" /> Education
+            </h3>
+            <p className="font-medium text-foreground">Al Azhar University</p>
+            <p className="mt-1 text-sm text-muted-foreground">Faculty of Islamic Dawah</p>
+            <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <MapPin className="size-3" /> Cairo, Egypt
+            </p>
+          </div>
+          <div className="mt-6 inline-flex w-fit rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
+            2026 - Present
+          </div>
+        </motion.div>
+
+        {/* 4. Skills Cards (Grid loop) */}
         {SKILL_GROUPS.map((group, index) => {
-          // Frontend & Backend will take 1 column each, Tools & Learning will take 2 and 1
           const isTools = group.title === "Tools & Platforms";
-          const isLearning = group.title === "Currently Learning";
 
           return (
             <motion.div

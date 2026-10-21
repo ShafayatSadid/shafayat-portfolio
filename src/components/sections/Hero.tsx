@@ -1,5 +1,5 @@
 // src/components/sections/Hero.tsx
-import { ArrowDown } from "lucide-react";
+import { Download } from "lucide-react"; // ArrowDown এর জায়গায় Download
 import { cn } from "cn";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
@@ -20,51 +20,20 @@ export function Hero() {
         <section className="relative overflow-hidden">
             {/* Background shapes & Floating Icons */}
             <div className="pointer-events-none absolute inset-0 -z-10">
-                {/* Glow shapes */}
                 <div className="absolute -left-32 top-10 h-64 w-96 -rotate-12 rounded-3xl bg-primary/5 blur-3xl" />
                 <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
                 <div className="absolute -bottom-20 left-1/3 h-64 w-96 rotate-12 rounded-3xl bg-primary/5 blur-3xl" />
 
-                {/* Floating Tech Icons (react-icons) */}
-                <div className="absolute inset-0 mx-auto max-w-5xl opacity-40 hidden md:block">
-
-                    <SiReact
-                        className="absolute left-[40%] top-[5%] size-12 text-[#61DAFB]"
-                        style={{ animation: "float 6s ease-in-out infinite", animationDelay: "0s" }}
-                    />
-
-                    <SiNextdotjs
-                        className="absolute left-[10%] top-[20%] size-12 text-foreground"
-                        style={{ animation: "float 6s ease-in-out infinite", animationDelay: "1s" }}
-                    />
-                    <SiNodedotjs
-                        className="absolute right-[15%] top-[25%] size-16 text-[#339933]"
-                        style={{ animation: "float 7s ease-in-out infinite", animationDelay: "2s" }}
-                    />
-                    <SiMongodb
-                        className="absolute left-[15%] bottom-[30%] size-14 text-[#47A248]"
-                        style={{ animation: "float 8s ease-in-out infinite", animationDelay: "3s" }}
-                    />
-                    <SiTypescript
-                        className="absolute right-[10%] bottom-[25%] size-12 text-[#3178C6]"
-                        style={{ animation: "float 5s ease-in-out infinite", animationDelay: "0.5s" }}
-                    />
-                    <SiGo
-                        className="absolute left-[25%] top-[10%] size-10 text-[#00ADD8]"
-                        style={{ animation: "float 6s ease-in-out infinite", animationDelay: "1.5s" }}
-                    />
-                    <SiJavascript
-                        className="absolute right-[25%] top-[10%] size-10 text-[#D4B000]"
-                        style={{ animation: "float 7s ease-in-out infinite", animationDelay: "2.5s" }}
-                    />
-                    <SiExpress
-                        className="absolute left-[5%] top-[60%] size-10 text-foreground"
-                        style={{ animation: "float 5s ease-in-out infinite", animationDelay: "3s" }}
-                    />
-                    <SiCplusplus
-                        className="absolute right-[5%] bottom-[15%] size-12 text-[#00599C]"
-                        style={{ animation: "float 8s ease-in-out infinite", animationDelay: "1.2s" }}
-                    />
+                <div className="absolute inset-0 mx-auto hidden max-w-5xl opacity-40 md:block">
+                    <SiReact className="absolute left-[40%] top-[5%] size-12 text-[#61DAFB]" style={{ animation: "float 6s ease-in-out infinite", animationDelay: "0s" }} />
+                    <SiNextdotjs className="absolute left-[10%] top-[20%] size-12 text-foreground" style={{ animation: "float 6s ease-in-out infinite", animationDelay: "1s" }} />
+                    <SiNodedotjs className="absolute right-[15%] top-[25%] size-16 text-[#339933]" style={{ animation: "float 7s ease-in-out infinite", animationDelay: "2s" }} />
+                    <SiMongodb className="absolute left-[15%] bottom-[30%] size-14 text-[#47A248]" style={{ animation: "float 8s ease-in-out infinite", animationDelay: "3s" }} />
+                    <SiTypescript className="absolute right-[10%] bottom-[25%] size-12 text-[#3178C6]" style={{ animation: "float 5s ease-in-out infinite", animationDelay: "0.5s" }} />
+                    <SiGo className="absolute left-[25%] top-[10%] size-10 text-[#00ADD8]" style={{ animation: "float 6s ease-in-out infinite", animationDelay: "1.5s" }} />
+                    <SiJavascript className="absolute right-[25%] top-[10%] size-10 text-[#D4B000]" style={{ animation: "float 7s ease-in-out infinite", animationDelay: "2.5s" }} />
+                    <SiExpress className="absolute left-[5%] top-[60%] size-10 text-foreground" style={{ animation: "float 5s ease-in-out infinite", animationDelay: "3s" }} />
+                    <SiCplusplus className="absolute right-[5%] bottom-[15%] size-12 text-[#00599C]" style={{ animation: "float 8s ease-in-out infinite", animationDelay: "1.2s" }} />
                 </div>
             </div>
 
@@ -102,13 +71,15 @@ export function Hero() {
                     and MongoDB.
                 </p>
 
-                {/* CTA */}
+                {/* CTA - Download Resume */}
                 <a
-                    href="#projects"
-                    className={cn(buttonVariants({ size: "lg" }), "relative z-10 gap-2")}
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(buttonVariants({ size: "lg" }), "relative z-10 gap-2 rounded-full")}
                 >
-                    Explore Portfolio
-                    <ArrowDown className="size-4" />
+                    Download Resume
+                    <Download className="size-4" />
                 </a>
             </div>
         </section>

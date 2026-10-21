@@ -91,18 +91,15 @@ export default function MyWorkPage() {
                     className={cn(buttonVariants({ variant: "default" }), "w-full gap-2 rounded-full sm:w-auto")}
                   >
                     Live Demo
-                    <ExternalLink className="size-4" />
                   </Link>
                   <Link
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={`/my-work/${project._id}`}
                     className={cn(buttonVariants({ variant: "outline" }), "w-full gap-2 rounded-full sm:w-auto")}
                   >
-                    <SiGithub className="size-4" />
-                    GitHub
+                    View Details
                   </Link>
                 </div>
+
               </div>
             </motion.div>
           ))}

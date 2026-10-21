@@ -2,9 +2,8 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://shafayatsadid.com";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL as string;
 
-  // ১. স্ট্যাটিক পেজগুলো
   const staticRoutes = [
     "",
     "/my-work",
@@ -19,13 +18,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === "" ? 1 : 0.8,
   }));
 
-  // ২. ডাইনামিক ব্লগ পেজগুলো (ব্যাকএন্ড থেকে ডেটা আনা)
   try {
+    // Vercel বিল্ডের সময় API না পাওয়া গেলে যাতে ক্র্যাশ না করে
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`, {
-      cache: "no-store",
+      next: { revalidate: 3600 }, // no-store বাদ দেওয়া হলো
+      signal: AbortSignal.timeout(5000), // ৫ সেকেন্ড পর টাইমআউট হবে
     });
     
-    if (!res.ok) throw new Error("Failed to fetch blogs");
+    if (!res.ok) return staticRoutes;
     
     const blogs = await res.json();
     
@@ -38,8 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [...staticRoutes, ...blogRoutes];
   } catch (error) {
-    console.error("Sitemap fetch error:", error);
-    // ব্যাকএন্ড ডাউন থাকলে যেন স্ট্যাটিক রুটগুলো অন্তত কাজ করে
-    return staticRoutes; 
+    console.log("Sitemap: API not reachable, using static routes only.");
+    return staticRoutes; // এরর হলে শুধু স্ট্যাটিক পেজগুলো দেখাবে
   }
 }
