@@ -112,6 +112,68 @@ export async function deleteProject(id: string) {
   });
 }
 
+
+// ... (আগের কোডগুলো অপরিবর্তিত থাকবে)
+// src/lib/api.ts (শেষে যোগ করো)
+
+// টেস্টিমোনিয়াল CRUD অপারেশন
+type TestimonialPayload = Omit<Testimonial, "_id" | "createdAt">;
+
+export async function getTestimonialById(id: string): Promise<Testimonial> {
+  return fetchWithAuth(`/api/testimonials/edit/${id}`);
+}
+
+export async function createTestimonial(data: TestimonialPayload) {
+  return fetchWithAuth("/api/testimonials", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateTestimonial(id: string, data: Partial<TestimonialPayload>) {
+  return fetchWithAuth(`/api/testimonials/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteTestimonial(id: string) {
+  return fetchWithAuth(`/api/testimonials/${id}`, {
+    method: "DELETE",
+  });
+}
+
+// ... (আগের কোডগুলো অপরিবর্তিত থাকবে)
+// src/lib/api.ts (শেষে যোগ করো)
+
+// মেসেজ (Contact) অপারেশন
+import { Contact } from "@/types/contact";
+
+export async function getMessages(): Promise<Contact[]> {
+  return fetchWithAuth("/api/contact");
+}
+
+export async function deleteMessage(id: string) {
+  return fetchWithAuth(`/api/contact/${id}`, {
+    method: "DELETE",
+  });
+}
+
+// src/lib/api.ts (শেষে যোগ করো)
+
+// ড্যাশবোর্ড স্ট্যাটস
+export interface DashboardStats {
+  projects: number;
+  blogs: number;
+  testimonials: number;
+  messages: number;
+}
+
+export async function getDashboardStats(): Promise<DashboardStats> {
+  return fetchWithAuth("/api/dashboard/stats");
+}
+
+
 export async function submitContactForm(data: { name: string; email: string; message: string }) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
     method: "POST",
