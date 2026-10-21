@@ -5,12 +5,12 @@ import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"; // নতুন ইমপোর্ট
 import { getBlogBySlug } from "@/lib/api";
 import { BlogPost } from "@/types/blog";
 import { ArrowLeft, Calendar } from "lucide-react";
 
 export default function SingleBlogPage({ params }: { params: Promise<{ slug: string }> }) {
-  // Next.js 16 এ params একটি Promise
   const resolvedParams = use(params);
   const [blog, setBlog] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,9 +24,7 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
       .catch(() => setLoading(false));
   }, [resolvedParams.slug]);
 
-  if (loading) {
-    return <div className="mx-auto max-w-3xl px-4 py-24 text-center">Loading...</div>;
-  }
+  if (loading) return <div className="mx-auto max-w-3xl px-4 py-24 text-center">Loading...</div>;
 
   if (!blog) {
     return (
@@ -64,9 +62,15 @@ export default function SingleBlogPage({ params }: { params: Promise<{ slug: str
         />
       </div>
 
-      {/* Markdown Render */}
-      <article className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-primary prose-img:rounded-xl">
-        <ReactMarkdown>{blog.content || ""}</ReactMarkdown>
+      {/* Markdown Render with Typography */}
+      <article className="prose prose-lg dark:prose-invert max-w-none 
+        prose-headings:font-bold prose-headings:tracking-tight 
+        prose-a:text-primary prose-a:no-underline hover:prose-a:underline 
+        prose-img:rounded-xl prose-pre:bg-muted prose-pre:text-foreground
+        prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {blog.content || ""}
+        </ReactMarkdown>
       </article>
     </main>
   );
