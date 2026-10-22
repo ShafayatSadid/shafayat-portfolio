@@ -72,7 +72,7 @@ export default function MyWorkPage() {
                   {project.description}
                 </p>
 
-                <div className="mb-8 flex flex-wrap gap-2">
+                <div className="mb-8 hidden md:flex flex-wrap gap-2">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
@@ -83,7 +83,7 @@ export default function MyWorkPage() {
                   ))}
                 </div>
 
-                <div className="flex items-center gap-3 border-t pt-6">
+                <div className="flex flex-wrap items-center gap-3 border-t pt-6">
                   <Link
                     href={project.liveUrl}
                     target="_blank"

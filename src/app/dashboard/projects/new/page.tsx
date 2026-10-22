@@ -4,12 +4,15 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { createProject } from "@/lib/api";
 import { ImageUploader } from "@/components/dashboard/ImageUploader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { toast } from "sonner";
 
@@ -38,12 +41,7 @@ export default function NewProjectPage() {
     setLoading(true);
     try {
       const techArray = formData.techStack.split(",").map(t => t.trim()).filter(Boolean);
-      
-      await createProject({
-        ...formData,
-        techStack: techArray,
-      });
-      
+      await createProject({ ...formData, techStack: techArray });
       toast.success("Project created successfully!");
       router.push("/dashboard/projects");
       router.refresh();
@@ -98,14 +96,42 @@ export default function NewProjectPage() {
           <Textarea id="description" rows={3} className="resize-none" placeholder="Brief overview..." value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} required />
         </div>
 
+        {/* Markdown Tab: Challenges */}
         <div className="space-y-2">
-          <Label htmlFor="challenges">Challenges Faced</Label>
-          <Textarea id="challenges" rows={3} className="resize-none" placeholder="What difficulties did you face during development?" value={formData.challenges} onChange={(e) => setFormData({ ...formData, challenges: e.target.value })} />
+          <Label>Challenges Faced (Markdown Supported)</Label>
+          <Tabs defaultValue="write" className="w-full">
+            <TabsList className="mb-2">
+              <TabsTrigger value="write">Write</TabsTrigger>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+            </TabsList>
+            <TabsContent value="write">
+              <Textarea id="challenges" rows={4} className="resize-none font-mono text-sm" placeholder="What difficulties did you face?" value={formData.challenges} onChange={(e) => setFormData({ ...formData, challenges: e.target.value })} />
+            </TabsContent>
+            <TabsContent value="preview">
+              <div className="min-h-[100px] rounded-md border bg-muted/30 p-4 prose prose-sm dark:prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{formData.challenges || "*No content to preview.*"}</ReactMarkdown>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
 
+        {/* Markdown Tab: Improvements */}
         <div className="space-y-2">
-          <Label htmlFor="improvements">Potential Improvements</Label>
-          <Textarea id="improvements" rows={3} className="resize-none" placeholder="What features will you add in the future?" value={formData.improvements} onChange={(e) => setFormData({ ...formData, improvements: e.target.value })} />
+          <Label>Potential Improvements (Markdown Supported)</Label>
+          <Tabs defaultValue="write" className="w-full">
+            <TabsList className="mb-2">
+              <TabsTrigger value="write">Write</TabsTrigger>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+            </TabsList>
+            <TabsContent value="write">
+              <Textarea id="improvements" rows={4} className="resize-none font-mono text-sm" placeholder="What features will you add in the future?" value={formData.improvements} onChange={(e) => setFormData({ ...formData, improvements: e.target.value })} />
+            </TabsContent>
+            <TabsContent value="preview">
+              <div className="min-h-[100px] rounded-md border bg-muted/30 p-4 prose prose-sm dark:prose-invert max-w-none">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{formData.improvements || "*No content to preview.*"}</ReactMarkdown>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
 
         <div className="flex justify-end border-t pt-6">

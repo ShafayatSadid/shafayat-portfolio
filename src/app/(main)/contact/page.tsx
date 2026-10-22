@@ -2,6 +2,7 @@
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Metadata } from "next";
+import { FaWhatsapp } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "Contact — Shafayat Sadid",
@@ -32,23 +33,58 @@ export default function ContactPage() {
           </div>
 
           <div className="flex flex-col gap-6">
+            {/* Email */}
             <div className="flex items-center gap-4">
-              <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Mail className="size-5" />
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Email</p>
-                <p className="font-semibold">hello@shafayatsadid.com</p>
+                <a href="mailto:mdshafayathossainsadid@gmail.com" className="font-semibold hover:text-primary transition-colors">
+                  mdshafayathossainsadid@gmail.com
+                </a>
               </div>
             </div>
 
+            {/* Location */}
             <div className="flex items-center gap-4">
-              <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <MapPin className="size-5" />
               </div>
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Location</p>
-                <p className="font-semibold">Bangladesh</p>
+                <p className="font-semibold">Cairo, Egypt</p>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <Phone className="size-5" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Phone</p>
+                <a href="tel:+201558659455" className="font-semibold hover:text-primary transition-colors">
+                  +20 155 963 9455
+                </a>
+              </div>
+            </div>
+
+            {/* WhatsApp */}
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366]">
+                <FaWhatsapp className="size-6" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">WhatsApp</p>
+                <a
+                  href="https://wa.me/201558659455"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold hover:text-[#25D366] transition-colors"
+                >
+                  Message me on WhatsApp
+                </a>
               </div>
             </div>
           </div>

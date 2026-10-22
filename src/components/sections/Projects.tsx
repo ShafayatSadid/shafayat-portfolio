@@ -105,7 +105,7 @@ export function Projects() {
                       </p>
 
                       {/* Tech Stack */}
-                      <div className="mb-8 flex flex-wrap gap-2">
+                      <div className="mb-8 hidden md:flex flex-wrap gap-2">
                         {project.techStack.map((tech) => (
                           <span
                             key={tech}
