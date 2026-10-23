@@ -1,5 +1,7 @@
 // src/app/(main)/my-work/[id]/page.tsx
+import { Suspense } from "react";
 import { Metadata } from "next";
+import { Loader2 } from "lucide-react";
 import ProjectDetailsClient from "./ProjectDetailsClient";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -19,7 +21,23 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+// ১. ডেটা রিড করার জন্য আলাদা চাইল্ড কম্পোনেন্ট
+async function ProjectContent({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   return <ProjectDetailsClient id={resolvedParams.id} />;
+}
+
+// ২. মেইন পেজ (Suspense দিয়ে র্যাপ করা)
+export default function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  return (
+    <Suspense 
+      fallback={
+        <div className="flex h-[70vh] items-center justify-center">
+          <Loader2 className="size-8 animate-spin text-primary" />
+        </div>
+      }
+    >
+      <ProjectContent params={params} />
+    </Suspense>
+  );
 }

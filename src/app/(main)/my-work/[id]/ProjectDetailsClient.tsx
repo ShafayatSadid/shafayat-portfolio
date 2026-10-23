@@ -72,7 +72,7 @@ export default function ProjectDetailsClient({ id }: { id: string }) {
 
         {/* Markdown Supported: Challenges */}
         <section>
-          <h2 className="mb-4 text-2xl font-bold">Challenges Faced</h2>
+          <h2 className="mb-4 text-2xl font-bold">Key Engineering Challenges</h2>
           
 
           {project.challenges ? (
@@ -88,7 +88,7 @@ export default function ProjectDetailsClient({ id }: { id: string }) {
 
         {/* Markdown Supported: Improvements */}
         <section>
-          <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold"><Lightbulb className="size-6 text-primary" /> Future Improvements</h2>
+          <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">Future Improvements & Roadmap</h2>
           {project.improvements ? (
             <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-pre:bg-muted prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
