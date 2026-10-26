@@ -50,7 +50,7 @@ export function About() {
                 width={96}
                 height={96}
                 unoptimized
-                className="h-full w-full object-cover"
+                className="object-cover"
               />
             </div>
             <div>
