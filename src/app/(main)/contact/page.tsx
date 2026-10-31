@@ -1,8 +1,8 @@
 // src/app/contact/page.tsx
 import { ContactForm } from "@/components/forms/ContactForm";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { Metadata } from "next";
+import { Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact — Shafayat Sadid",
@@ -11,87 +11,96 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="mx-auto min-h-[80vh] max-w-5xl px-4 py-24">
-      <div className="mb-16 text-center">
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-          Get in <span className="text-primary">Touch</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Have a question or want to work together? Leave your details below and I&apos;ll get back to you as soon as possible.
-        </p>
-      </div>
-
-      <div className="grid gap-12 md:grid-cols-2">
-        {/* Contact Info */}
-        <div className="flex flex-col gap-8">
-          <div>
-            <h2 className="mb-6 text-2xl font-bold">Let&apos;s talk about your project</h2>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-              I&apos;m currently available for freelance work and open to new opportunities.
+    <main className="mx-auto min-h-[80vh] max-w-6xl px-4 py-24">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+        
+        {/* বাঁ পাশ: কন্টাক্ট ইনফো (৫ কলাম) */}
+        <div className="flex flex-col gap-6 lg:col-span-5">
+          <div className="mb-4">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl mb-4">
+              Let&apos;s <span className="text-primary">Talk.</span>
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I&apos;m currently available for freelance work and open to new opportunities. 
               Whether you have a specific project in mind or just want to say hi, I&apos;d love to hear from you.
             </p>
           </div>
 
-          <div className="flex flex-col gap-6">
-            {/* Email */}
+          {/* Email Card */}
+          <a 
+            href="mailto:mdshafayathossainsadid@gmail.com" 
+            className="group flex items-center justify-between rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:border-primary/50"
+          >
             <div className="flex items-center gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <Mail className="size-5" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Email</p>
-                <a href="mailto:mdshafayathossainsadid@gmail.com" className="font-semibold hover:text-primary transition-colors">
-                  mdshafayathossainsadid@gmail.com
-                </a>
+                <p className="text-sm font-medium text-muted-foreground">Email Me</p>
+                <p className="font-semibold text-foreground">mdshafayathossainsadid@gmail.com</p>
               </div>
             </div>
+            <ArrowUpRight className="size-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" />
+          </a>
 
-            {/* Location */}
-            <div className="flex items-center gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <MapPin className="size-5" />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {/* Phone Card */}
+            <a 
+              href="tel:+201558659455" 
+              className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:border-primary/50"
+            >
+              <div className="mb-4 flex size-10 items-center justify-center rounded-full bg-muted text-foreground group-hover:text-primary">
+                <Phone className="size-4" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Location</p>
-                <p className="font-semibold">Cairo, Egypt</p>
+                <p className="text-xs font-medium text-muted-foreground mb-1">Call Me</p>
+                <p className="font-semibold text-foreground text-sm">+20 155 963 9455</p>
               </div>
-            </div>
+            </a>
 
-            {/* Phone */}
-            <div className="flex items-center gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Phone className="size-5" />
+            {/* Location Card */}
+            <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div className="mb-4 flex size-10 items-center justify-center rounded-full bg-muted text-foreground">
+                <MapPin className="size-4" />
               </div>
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Phone</p>
-                <a href="tel:+201558659455" className="font-semibold hover:text-primary transition-colors">
-                  +20 155 963 9455
-                </a>
-              </div>
-            </div>
-
-            {/* WhatsApp */}
-            <div className="flex items-center gap-4">
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366]">
-                <FaWhatsapp className="size-6" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">WhatsApp</p>
-                <a
-                  href="https://wa.me/201558659455"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-semibold hover:text-[#25D366] transition-colors"
-                >
-                  Message me on WhatsApp
-                </a>
+                <p className="text-xs font-medium text-muted-foreground mb-1">Location</p>
+                <p className="font-semibold text-foreground text-sm">Cairo, Egypt</p>
               </div>
             </div>
           </div>
+
+          {/* WhatsApp Card */}
+          <a 
+            href="https://wa.me/201558659455" 
+            target="_blank" 
+            rel="noreferrer" 
+            className="group flex items-center justify-between rounded-2xl border border-[#25D366]/20 bg-[#25D366]/5 p-6 shadow-sm transition-all hover:bg-[#25D366]/10"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#25D366]/20 text-[#25D366]">
+                <FaWhatsapp className="size-6" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-[#25D366]/80">Quick Chat</p>
+                <p className="font-semibold text-[#25D366]">Message on WhatsApp</p>
+              </div>
+            </div>
+            <ArrowUpRight className="size-5 text-[#25D366] transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+          </a>
         </div>
 
-        {/* Contact Form */}
-        <ContactForm />
+        {/* ডান পাশ: কন্টাক্ট ফর্ম (৭ কলাম) */}
+        <div className="lg:col-span-7">
+          <div className="h-full rounded-3xl border border-border bg-card p-6 shadow-sm md:p-10">
+            <h2 className="mb-2 text-2xl font-bold text-foreground">Send a Message</h2>
+            <p className="mb-8 text-sm text-muted-foreground">
+              Fill out the form below and I will get back to you within 24 hours.
+            </p>
+            <ContactForm />
+          </div>
+        </div>
+
       </div>
     </main>
   );

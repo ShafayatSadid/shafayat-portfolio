@@ -60,11 +60,18 @@ export function Navbar() {
         
         {/* Left Side */}
         <div className="flex items-center">
-          <Link href="/" className="text-lg font-semibold tracking-tight md:hidden">
-            <span className="text-foreground">Shafayat</span>{" "}
-            <span className="text-primary">Sadid</span>
-          </Link>
+          
+          {/* Mobile CTA Button */}
+          <div className="md:hidden">
+            <Link
+              href="/contact"
+              className={cn(buttonVariants({ size: "sm" }), "rounded-full h-8 px-4 text-xs font-semibold")}
+            >
+              Let&apos;s Talk
+            </Link>
+          </div>
 
+          {/* Desktop Socials */}
           <div className="hidden items-center gap-2 md:flex">
             {SOCIALS.map((social) => {
               const Icon = ICON_MAP[social.icon];
@@ -87,7 +94,7 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Middle Side */}
+        {/* Middle Side (Desktop) */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex">
           {NAV_ITEMS.map((item) => (
             <Link
@@ -122,7 +129,6 @@ export function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-64 rounded-2xl p-2 shadow-xl border-border/50">
                   <DropdownMenuGroup>
-                    {/* প্রিমিয়াম ইউজার ইনফো সেকশন */}
                     <DropdownMenuLabel className="font-normal p-0 mb-2">
                       <div className="flex items-center gap-3 rounded-xl bg-muted/50 p-3">
                         <Avatar className="size-10 border border-border">
@@ -142,7 +148,6 @@ export function Navbar() {
                     
                     <DropdownMenuSeparator className="mb-1" />
 
-                    {/* শুধুমাত্র অ্যাডমিন হলে ড্যাশবোর্ড অপশন দেখাবে */}
                     {isAdmin && (
                       <DropdownMenuItem 
                         onClick={() => router.push("/dashboard")} 
@@ -153,7 +158,6 @@ export function Navbar() {
                       </DropdownMenuItem>
                     )}
                     
-                    {/* লগআউট বাটন */}
                     <DropdownMenuItem 
                       onClick={handleSignOut} 
                       className="cursor-pointer rounded-lg py-2.5 text-destructive focus:bg-destructive/10 focus:text-destructive transition-colors mt-1"
