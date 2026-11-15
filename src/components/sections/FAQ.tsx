@@ -79,16 +79,14 @@ export function FAQ() {
                             value={`item-${index}`}
                             className="rounded-2xl border border-border bg-card px-6 shadow-sm transition-all hover:border-primary/50"
                         >
-                            <AccordionTrigger className="text-left text-base font-semibold hover:no-underline py-5">
-                                {/* এখানে নম্বর এবং প্রশ্ন একসাথে করা হয়েছে */}
+                            <AccordionTrigger className="text-left text-base font-semibold hover:no-underline py-5.5">
+                                
                                 <div className="flex items-center gap-4">
-                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground">
-                                        0{index + 1}
-                                    </span>
+                                    
                                     <span>{faq.question}</span>
                                 </div>
                             </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground leading-relaxed pb-5 pl-12">
+                            <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
                                 {faq.answer}
                             </AccordionContent>
                         </AccordionItem>

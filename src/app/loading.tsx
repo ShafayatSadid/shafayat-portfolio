@@ -8,7 +8,7 @@ export default function Loading() {
         {/* Inner Spinning Ring */}
         <div className="absolute inset-0 animate-spin rounded-full border-4 border-primary border-t-transparent border-l-transparent" />
         {/* Center Logo Text */}
-        <span className="text-sm font-bold text-primary animate-pulse">SS</span>
+        <span className="text-sm font-bold text-primary animate-pulse"></span>
       </div>
       <p className="mt-6 text-sm font-medium text-muted-foreground animate-pulse">
         Loading amazing things...

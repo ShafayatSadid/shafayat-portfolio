@@ -53,12 +53,12 @@ export function ContactForm() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" name="name" placeholder="John Doe" required />
+            <Input id="name" name="name" placeholder="Your name" required />
           </div>
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" placeholder="john@example.com" required />
+            <Input id="email" name="email" type="email" placeholder="Your email address" required />
           </div>
 
           <div className="flex flex-col gap-2">
