@@ -54,7 +54,7 @@ export function About() {
               />
             </div>
             <div>
-              <h3 className="text-2xl font-bold">Shafayat Sadid</h3>
+              <h3 className="text-2xl font-bold">Md. Shafayat Hossain Sadid</h3>
               <p className="mt-1 text-sm font-medium text-primary">Full-Stack Developer</p>
             </div>
           </div>

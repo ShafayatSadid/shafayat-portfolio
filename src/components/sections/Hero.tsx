@@ -1,10 +1,11 @@
 // src/components/sections/Hero.tsx
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as motion from "motion/react-client";
-import type { Variants } from "motion/react"; // <-- নতুন ইমপোর্ট
+import type { Variants } from "motion/react"; 
 import { ArrowRight, Download, MapPin, Code2 } from "lucide-react";
 import { SiNextdotjs, SiReact, SiNodedotjs, SiTypescript, SiMongodb } from "react-icons/si";
 import { buttonVariants } from "@/components/ui/button";
@@ -20,10 +21,57 @@ const itemVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
+// কাউন্টার অ্যানিমেশনের কাস্টম হুক (এখন isVisible প্যারামিটার নিবে)
+function useCountUp(target: number, isVisible: boolean, duration: number = 1500) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    // যদি স্ক্রিনে ভিজিবল না হয়, তবে কিছু করবে না
+    if (!isVisible) return;
+
+    let start = 0;
+    const stepTime = Math.abs(Math.floor(duration / target));
+    
+    const timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start === target) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [target, duration, isVisible]);
+
+  return count;
+}
+
 export function Hero() {
+  const fullText = "A Full-Stack Developer helping businesses turn their ideas into scalable, production-ready web applications.";
+  const [displayText, setDisplayText] = useState("");
+  
+  // স্ট্যাটস কার্ড ভিউপোর্টে এসেছে কি না তা ট্র্যাক করার স্টেট
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
+
+  // কাউন্টার হুক কল (এখন isStatsVisible পাস করা হলো)
+  const projectCount = useCountUp(4, isStatsVisible, 3000);
+  const satisfactionCount = useCountUp(100, isStatsVisible, 3000);
+
+  useEffect(() => {
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      setDisplayText(fullText.slice(0, i));
+      i++;
+      if (i > fullText.length) {
+        clearInterval(typingInterval);
+      }
+    }, 40);
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background py-20">
-      {/* Background Glow */}
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-background py-5 md:py-20">
       <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
         <div className="h-[400px] w-[400px] md:h-[600px] md:w-[600px] rounded-full bg-primary/10 blur-[120px] md:blur-[180px] opacity-60" />
       </div>
@@ -35,10 +83,10 @@ export function Hero() {
           animate="visible"
           className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6"
         >
-          {/* ১. বায়ো কার্ড (৭ কলাম) */}
+          {/* ১. বায়ো কার্ড (মোবাইলে order-2) */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-center overflow-hidden rounded-3xl border border-border bg-card p-8 md:col-span-7 md:p-10 transition-all hover:border-primary/50"
+            className="order-2 md:order-none group relative flex flex-col justify-center overflow-hidden rounded-3xl border border-border bg-card p-8 md:col-span-7 md:p-10 transition-all hover:border-primary/50"
           >
             <div className="relative z-10">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium">
@@ -51,9 +99,14 @@ export function Hero() {
               <h1 className="mb-4 text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
                 Hi, I&apos;m <span className="text-primary">Shafayat</span>
               </h1>
-              <p className="mb-8 max-w-md text-base text-muted-foreground md:text-lg">
-                A Full-Stack Developer helping businesses turn their ideas into scalable, production-ready web applications.
-              </p>
+              
+              <div className="mb-8 h-20">
+                <p className="max-w-md text-base text-muted-foreground md:text-lg leading-relaxed">
+                  {displayText}
+                  <span className="inline-block w-0.5 h-3.5 md:h-4 bg-primary ml-1 animate-pulse" />
+                </p>
+              </div>
+
               <div className="flex flex-wrap items-center gap-3">
                 <Link
                   href="/my-work"
@@ -74,10 +127,10 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* ২. ছবির কার্ড (৫ কলাম) */}
+          {/* ২. ছবির কার্ড (মোবাইলে order-1) */}
           <motion.div
             variants={itemVariants}
-            className="group relative overflow-hidden rounded-3xl border border-border bg-muted md:col-span-5 md:row-span-2 min-h-[350px] md:min-h-full"
+            className="order-1 md:order-none group relative overflow-hidden rounded-3xl border border-border bg-muted md:col-span-5 md:row-span-2 min-h-[350px] md:min-h-full"
           >
             <Image
               src="/images/shafayat.jpg"
@@ -94,10 +147,10 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* ৩. টেক স্ট্যাক কার্ড (৪ কলাম) */}
+          {/* ৩. টেক স্ট্যাক কার্ড (মোবাইলে order-3) */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col justify-center rounded-3xl border border-border bg-card p-6 md:col-span-4 md:p-8 transition-all hover:border-primary/50"
+            className="order-3 md:order-none flex flex-col justify-center rounded-3xl border border-border bg-card p-6 md:col-span-4 md:p-8 transition-all hover:border-primary/50"
           >
             <div className="mb-4 flex items-center gap-2">
               <Code2 className="size-5 text-primary" />
@@ -112,10 +165,12 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* ৪. লোকেশন এবং স্ট্যাটস কার্ড (৩ কলাম) */}
+          {/* ৪. লোকেশন এবং স্ট্যাটস কার্ড (মোবাইলে order-4) - onViewportEnter যোগ করা হলো */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col justify-center rounded-3xl border border-border bg-card p-6 md:col-span-3 md:p-8 transition-all hover:border-primary/50"
+            onViewportEnter={() => setIsStatsVisible(true)}
+            viewport={{ once: true, margin: "-50px" }}
+            className="order-4 md:order-none flex flex-col justify-center rounded-3xl border border-border bg-card p-6 md:col-span-3 md:p-8 transition-all hover:border-primary/50"
           >
             <div className="flex items-center gap-2 text-muted-foreground mb-4">
               <MapPin className="size-4" />
@@ -123,12 +178,12 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-6">
               <div>
-                <p className="text-3xl font-bold text-foreground">4+</p>
+                <p className="text-3xl font-bold text-foreground">{projectCount}+</p>
                 <p className="text-xs text-muted-foreground mt-1">Projects</p>
               </div>
               <div className="h-8 w-px bg-border" />
               <div>
-                <p className="text-3xl font-bold text-foreground">100%</p>
+                <p className="text-3xl font-bold text-foreground">{satisfactionCount}%</p>
                 <p className="text-xs text-muted-foreground mt-1">Satisfaction</p>
               </div>
             </div>

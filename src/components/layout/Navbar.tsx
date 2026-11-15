@@ -170,7 +170,7 @@ export function Navbar() {
               </DropdownMenu>
             ) : (
               <Link href="/contact" className={cn(buttonVariants({ size: "sm" }), "rounded-full px-6")}>
-                Hire Me
+                Let&apos;s Talk
               </Link>
             )}
           </div>

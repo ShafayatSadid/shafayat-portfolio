@@ -1,24 +1,17 @@
-// src/proxy.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { headers } from "next/headers";
-import { auth } from "./lib/auth";
+import { getSessionCookie } from "better-auth/cookies";
 
 export async function proxy(request: NextRequest) {
-    
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
+    const sessionCookie = getSessionCookie(request);
 
-    
-    const role = (session?.user as { role?: string })?.role;
-
-    
-    if (!session || role !== "admin") {
-        return NextResponse.redirect(new URL("/", request.url));
+    // If there's no session cookie, redirect to login
+    if (!sessionCookie) {
+        return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    
+    // If a session cookie exists, allow the request to proceed.
+    // The actual role (admin) check will be done in the page/route itself.
     return NextResponse.next();
 }
 

@@ -26,7 +26,7 @@ export async function Footer() {
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     <div className="flex flex-col gap-4">
                         <Link href="/" className="text-xl font-semibold tracking-tight">
-                            <span className="text-foreground">Shafayat</span>{" "}
+                            <span className="text-foreground">Md. Shafayat Hossain</span>{" "}
                             <span className="text-primary">Sadid</span>
                         </Link>
                         <p className="text-sm text-muted-foreground leading-relaxed">
